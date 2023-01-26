@@ -1,0 +1,61 @@
+SELECT ProductID, Name, Color, ListPrice
+from Production.Product
+
+
+SELECT ProductID, Name, Color, ListPrice
+from Production.Product
+WHERE ListPrice != 0
+
+
+SELECT ProductID, Name, Color, ListPrice
+from Production.Product
+WHERE Color is not null
+
+
+SELECT ProductID, Name, Color, ListPrice
+from Production.Product
+WHERE Color is not null AND ListPrice > 0
+
+
+SELECT Name + ' ' + Color
+from Production.Product
+WHERE Color is not null
+
+
+SELECT TOP(6)
+'NAME: '+Name+' -- COLOR: '+Color
+FROM Production.Product
+where color is not null
+
+
+SELECT ProductID, Name
+FROM Production.Product
+where ProductID BETWEEN 400 and 500
+
+
+SELECT ProductID, Name, Color
+FROM Production.Product
+where color in ('black', 'blue')
+
+
+SELECT Name, ListPrice
+FROM Production.Product
+where Name like 'S%'
+order BY name
+
+
+SELECT Name, ListPrice
+FROM Production.Product
+where Name like '[A,S]%'
+order BY name
+
+
+SELECT Name
+FROM Production.Product
+where Name like 'SPO[^K]%'
+order BY name
+
+
+SELECT distinct Color
+FROM Production.Product
+order by color DESC
