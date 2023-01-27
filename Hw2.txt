@@ -1,0 +1,72 @@
+select count(ProductID)
+from Production.Product
+
+
+select ProductSubcategoryID, count(ProductID) CountedProducts
+from Production.Product
+group by (ProductSubcategoryID)
+
+
+select count(ProductID)
+from Production.Product
+WHERE ProductSubcategoryID is NULL
+
+
+SELECT sum(Quantity) quantity
+from Production.ProductInventory
+
+
+select ProductID, sum(Quantity) TheSum
+from Production.ProductInventory
+WHERE LocationID = 40
+group by ProductID
+having sum(Quantity) < 100
+
+
+SELECT ProductID, Shelf ,avg(Quantity) TheAvg
+from Production.ProductInventory
+WHERE Shelf != 'N/A'
+group by ProductID, Shelf
+
+
+SELECT color, Class, count(ProductID) TheCount, AVG(ListPrice) AvgPrice
+from Production.Product
+where Color is not null and class is not NULL
+group by Color, Class
+
+
+
+-- Joins
+SELECT c.Name Country, s.Name Province
+from person.CountryRegion c
+join person.StateProvince s on c.CountryRegionCode = s.CountryRegionCode
+
+SELECT c.Name Country, s.Name Province
+from person.CountryRegion c
+join person.StateProvince s on c.CountryRegionCode = s.CountryRegionCode
+where c.Name in ('Germany', 'Canada')
+
+
+
+-- Using Northwnd Database: (Use aliases for all the Joins)
+Select TOP 5 ShipPostalCode,  COUNT(OrderID)
+from dbo.Orders
+GROUP by ShipPostalCode
+ORDER by COUNT(OrderID) DESC
+
+
+SELECT city, count(CustomerID) [Number of Customers]
+from dbo.Customers
+GROUP by City
+
+
+SELECT city, count(CustomerID) [Number of Customers]
+from dbo.Customers
+GROUP by City
+having count(CustomerID)>2
+
+
+SELECT distinct c.ContactName
+from dbo.Orders o
+JOIN dbo.Customers c ON o.CustomerID = c.CustomerID
+where o.OrderDate >= '1998-01-01 00:00:00.000'
