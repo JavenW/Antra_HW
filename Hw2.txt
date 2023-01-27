@@ -72,7 +72,7 @@ JOIN dbo.Customers c ON o.CustomerID = c.CustomerID
 where o.OrderDate >= '1998-01-01 00:00:00.000'
 
 
-SELECT c.ContactName, MAX(o.OrderDate) AS OrderDate
+SELECT c.ContactName, MAX(o.OrderDate) OrderDate
 FROM Customers c LEFT JOIN Orders o ON c.CustomerId = o.CustomerId
 GROUP BY c.ContactName
 
