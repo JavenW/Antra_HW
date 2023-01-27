@@ -70,3 +70,22 @@ SELECT distinct c.ContactName
 from dbo.Orders o
 JOIN dbo.Customers c ON o.CustomerID = c.CustomerID
 where o.OrderDate >= '1998-01-01 00:00:00.000'
+
+
+SELECT c.ContactName, MAX(o.OrderDate) AS OrderDate
+FROM Customers c LEFT JOIN Orders o ON c.CustomerId = o.CustomerId
+GROUP BY c.ContactName
+
+
+SELECT DISTINCT sup.CompanyName, ship.CompanyName
+FROM dbo.Orders o
+JOIN dbo.[Order Details] od ON o.OrderID = od.OrderID
+JOIN dbo.Products p ON od.ProductID = p.ProductID
+JOIN dbo.Suppliers sup ON p.SupplierID = sup.SupplierID
+JOIN dbo.Shippers ship ON o.ShipVia = ship.ShipperID;
+
+
+SELECT e1.LastName, e1.FirstName
+FROM dbo.Employees e1 JOIN dbo.Employees e2 ON e1.EmployeeId = e2.ReportsTo
+GROUP BY e1.LastName, e1.FirstName
+HAVING COUNT(e2.ReportsTo) > 2
