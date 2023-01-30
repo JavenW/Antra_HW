@@ -1,0 +1,58 @@
+--3
+select p.ProductName, sum(Quantity) [totalQuantities]
+from dbo.[Order Details] od
+join Products p on od.ProductID = p.ProductID
+group by p.ProductName
+
+
+--4
+select o.ShipCity, sum(Quantity) [totalQuantities]
+from dbo.[Order Details] od
+join dbo.Orders o on od.OrderID = o.OrderID
+group by o.ShipCity
+
+
+--5a
+
+
+
+--5b
+select o.ShipCity
+from dbo.Orders o
+where o.ShipCity IN
+(select o2.ShipCity from dbo.Orders o2 group by o2.ShipCity having COUNT(o2.ShipCity)>1)
+
+
+--8
+select top 5 od2.ProductID from [Order Details] od2 group by od2.ProductID order by COUNT(od2.ProductID) DESC
+
+
+--9a
+select e.City
+from Employees e
+where e.City not IN
+(select distinct o.ShipCity from Orders o)
+
+--9b
+select e.City
+from Employees e
+left join Orders o on e.City=o.ShipCity
+where o.OrderID is NULL
+
+
+--10 most order
+select top 1 ShipCity
+from Orders
+group by ShipCity
+order by count(ShipCity) DESC
+
+--10 most quantity
+select top 1 o.ShipCity
+from [Orders] o 
+join [Order Details] od on od.OrderID=o.OrderID
+group by o.ShipCity
+order by sum(Quantity)
+
+
+--11
+--use group by all columns and count to remove the duplication row
